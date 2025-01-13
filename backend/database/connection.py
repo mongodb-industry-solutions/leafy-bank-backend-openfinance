@@ -2,9 +2,8 @@ from pymongo import MongoClient
 from typing import Dict, List
 
 
-class MongoDBAccess:
+class MongoDBConnection:
     """  
-    A class to provide access to a MongoDB database.  
     This class handles the connection to the database and provides methods to interact with collections and documents.  
     """ 
 
@@ -25,14 +24,6 @@ class MongoDBAccess:
         except Exception as e:
             raise Exception(
                 "The following error occurred: ", e)
-
-    def __del__(self):
-        """ 
-        Destructor function to close the database connection.  
-        
-        This method is called when the object is about to be destroyed.  
-        """
-        self.client.close()
 
     def get_client(self):
         """ 

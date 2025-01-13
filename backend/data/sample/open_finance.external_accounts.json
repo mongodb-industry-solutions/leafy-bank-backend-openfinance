@@ -1,0 +1,168 @@
+[{
+  "_id": {
+    "$oid": "677fd045cbdd935efc23765a"
+  },
+  "AccountNumber": "835271955",
+  "AccountBank": "MongoDB Bank",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2023-05-31T05:21:38.453Z"
+    }
+  },
+  "AccountType": "Savings",
+  "AccountBalance": 9910,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Savings account for gracehop at MongoDB Bank",
+  "AccountUser": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677fd606cbdd935efc23765c"
+  },
+  "AccountNumber": "768617107",
+  "AccountBank": "MongoDB Bank",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2020-03-16T19:36:32.645Z"
+    }
+  },
+  "AccountType": "Checking",
+  "AccountBalance": 3847,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Checking account for gracehop at MongoDB Bank",
+  "AccountUser": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677fd61fcbdd935efc23765e"
+  },
+  "AccountNumber": "355894804",
+  "AccountBank": "GreenLeaf Banking",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2020-04-07T23:23:06.018Z"
+    }
+  },
+  "AccountType": "Savings",
+  "AccountBalance": 8918,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Savings account for gracehop at GreenLeaf Banking",
+  "AccountUser": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677fd654cbdd935efc237660"
+  },
+  "AccountNumber": "729921377",
+  "AccountBank": "GreenLeaf Banking",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2021-06-04T02:06:25.188Z"
+    }
+  },
+  "AccountType": "Checking",
+  "AccountBalance": 4064,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Checking account for fridaklo at GreenLeaf Banking",
+  "AccountUser": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677fd659cbdd935efc237662"
+  },
+  "AccountNumber": "885215006",
+  "AccountBank": "GreenLeaf Banking",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2023-04-16T16:55:32.778Z"
+    }
+  },
+  "AccountType": "Savings",
+  "AccountBalance": 5131,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Savings account for fridaklo at GreenLeaf Banking",
+  "AccountUser": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677fd663cbdd935efc237664"
+  },
+  "AccountNumber": "121268475",
+  "AccountBank": "MongoDB Bank",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2021-10-31T18:03:00.345Z"
+    }
+  },
+  "AccountType": "Checking",
+  "AccountBalance": 4851,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Checking account for fridaklo at MongoDB Bank",
+  "AccountUser": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6780fbe989905eea5e0a3d2b"
+  },
+  "AccountNumber": "645671347",
+  "AccountBank": "MongoDB Bank",
+  "AccountStatus": "Active",
+  "AccountIdentificationType": "AccountNumber",
+  "AccountDate": {
+    "OpeningDate": {
+      "$date": "2022-05-25T22:19:36.577Z"
+    }
+  },
+  "AccountType": "Checking",
+  "AccountBalance": 7726,
+  "AccountCurrency": "USD",
+  "AccountDescription": "Checking account for fridaklo at MongoDB Bank",
+  "AccountUser": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  }
+}]

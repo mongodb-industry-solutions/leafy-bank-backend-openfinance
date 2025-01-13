@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "65a546ae4a8f64e8f88fb89e"
+  },
+  "UserName": "fridaklo",
+  "ApiKey": "XXXXXXXXXXXXXXXX",
+  "ApiKeyDates": {
+    "CreationDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    },
+    "LastUseDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "66fe219d625d93a100528224"
+  },
+  "UserName": "gracehop",
+  "ApiKey": "XXXXXXXXXXXXXXXX",
+  "ApiKeyDates": {
+    "CreationDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    },
+    "LastUseDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "671ff0081ec726b417352702"
+  },
+  "UserName": "adalove",
+  "ApiKey": "XXXXXXXXXXXXXXXX",
+  "ApiKeyDates": {
+    "CreationDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    },
+    "LastUseDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "671ff2451ec726b417352703"
+  },
+  "UserName": "claumon",
+  "ApiKey": "XXXXXXXXXXXXXXXX",
+  "ApiKeyDates": {
+    "CreationDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    },
+    "LastUseDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "677e621c882b66b5d311bf3d"
+  },
+  "UserName": "external",
+  "ApiKey": "XXXXXXXXXXXXXXXX",
+  "ApiKeyDates": {
+    "CreationDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    },
+    "LastUseDate": {
+      "$date": "XXXXXXXXXXXXXXXX"
+    }
+  }
+}]
