@@ -51,7 +51,7 @@
     "$oid": "677fd61fcbdd935efc23765e"
   },
   "AccountNumber": "355894804",
-  "AccountBank": "GreenLeaf Banking",
+  "AccountBank": "GreenLeaf Bank",
   "AccountStatus": "Active",
   "AccountIdentificationType": "AccountNumber",
   "AccountDate": {
@@ -62,7 +62,7 @@
   "AccountType": "Savings",
   "AccountBalance": 8918,
   "AccountCurrency": "USD",
-  "AccountDescription": "Savings account for gracehop at GreenLeaf Banking",
+  "AccountDescription": "Savings account for gracehop at GreenLeaf Bank",
   "AccountUser": {
     "UserName": "gracehop",
     "UserId": {
@@ -75,7 +75,7 @@
     "$oid": "677fd654cbdd935efc237660"
   },
   "AccountNumber": "729921377",
-  "AccountBank": "GreenLeaf Banking",
+  "AccountBank": "GreenLeaf Bank",
   "AccountStatus": "Active",
   "AccountIdentificationType": "AccountNumber",
   "AccountDate": {
@@ -86,7 +86,7 @@
   "AccountType": "Checking",
   "AccountBalance": 4064,
   "AccountCurrency": "USD",
-  "AccountDescription": "Checking account for fridaklo at GreenLeaf Banking",
+  "AccountDescription": "Checking account for fridaklo at GreenLeaf Bank",
   "AccountUser": {
     "UserName": "fridaklo",
     "UserId": {
@@ -99,7 +99,7 @@
     "$oid": "677fd659cbdd935efc237662"
   },
   "AccountNumber": "885215006",
-  "AccountBank": "GreenLeaf Banking",
+  "AccountBank": "GreenLeaf Bank",
   "AccountStatus": "Active",
   "AccountIdentificationType": "AccountNumber",
   "AccountDate": {
@@ -110,7 +110,7 @@
   "AccountType": "Savings",
   "AccountBalance": 5131,
   "AccountCurrency": "USD",
-  "AccountDescription": "Savings account for fridaklo at GreenLeaf Banking",
+  "AccountDescription": "Savings account for fridaklo at GreenLeaf Bank",
   "AccountUser": {
     "UserName": "fridaklo",
     "UserId": {
