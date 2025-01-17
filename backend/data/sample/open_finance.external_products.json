@@ -1,0 +1,223 @@
+[{
+  "_id": {
+    "$oid": "678a5899fd053f026e6b97c2"
+  },
+  "ProductId": "1784",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Loan",
+  "ProductAmount": 10700,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 3.75,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2024-06-03T11:46:52.350Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  },
+  "GreenProductNarrative": "Loan tailored for sustainability at Green Bank",
+  "RepaymentPeriod": 12,
+  "LoanCollateral": "None"
+},
+{
+  "_id": {
+    "$oid": "678a58bcfd053f026e6b97ca"
+  },
+  "ProductId": "3463",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 43500,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 2.62,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2020-10-23T23:37:57.531Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  },
+  "MDBProductNarrative": "Mortgage product offered by MongoDB Bank with MongoDB's excellence",
+  "AmortizationPeriod": 20,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 91719
+  }
+},
+{
+  "_id": {
+    "$oid": "678a5951fd053f026e6b97d2"
+  },
+  "ProductId": "9847",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 35000,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 4.45,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2024-01-21T07:12:13.289Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  },
+  "MDBProductNarrative": "Mortgage product offered by MongoDB Bank with MongoDB's excellence",
+  "AmortizationPeriod": 25,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 55244
+  }
+},
+{
+  "_id": {
+    "$oid": "678a595efd053f026e6b97d8"
+  },
+  "ProductId": "4621",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Loan",
+  "ProductAmount": 20000,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 3.67,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2023-10-11T23:37:05.025Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  },
+  "GreenProductNarrative": "Loan tailored for sustainability at Green Bank",
+  "RepaymentPeriod": 24,
+  "LoanCollateral": "None"
+},
+{
+  "_id": {
+    "$oid": "678a5a16fd053f026e6b97dc"
+  },
+  "ProductId": "3359",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 14500,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 3.78,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2022-06-22T23:58:22.809Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "adalove",
+    "UserId": {
+      "$oid": "671ff0081ec726b417352702"
+    }
+  },
+  "GreenProductNarrative": "Mortgage tailored for sustainability at Green Bank",
+  "AmortizationPeriod": 30,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 74171
+  }
+},
+{
+  "_id": {
+    "$oid": "678a5a24fd053f026e6b97e4"
+  },
+  "ProductId": "6537",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 43600,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 3.31,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2017-08-23T05:44:51.394Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "adalove",
+    "UserId": {
+      "$oid": "671ff0081ec726b417352702"
+    }
+  },
+  "MDBProductNarrative": "Mortgage product offered by MongoDB Bank with MongoDB's excellence",
+  "AmortizationPeriod": 25,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 83607
+  }
+},
+{
+  "_id": {
+    "$oid": "678a5abbfd053f026e6b97ec"
+  },
+  "ProductId": "2904",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Loan",
+  "ProductAmount": 10000,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 4.63,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2022-09-03T20:15:14.221Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "claumon",
+    "UserId": {
+      "$oid": "671ff2451ec726b417352703"
+    }
+  },
+  "MDBProductNarrative": "Loan product offered by MongoDB Bank with MongoDB's excellence",
+  "RepaymentPeriod": 36,
+  "LoanCollateral": "None"
+},
+{
+  "_id": {
+    "$oid": "678a5ac6fd053f026e6b97f2"
+  },
+  "ProductId": "9219",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 44500,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 2.89,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2022-05-23T09:15:46.872Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "claumon",
+    "UserId": {
+      "$oid": "671ff2451ec726b417352703"
+    }
+  },
+  "GreenProductNarrative": "Mortgage tailored for sustainability at Green Bank",
+  "AmortizationPeriod": 25,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 96016
+  }
+}]
