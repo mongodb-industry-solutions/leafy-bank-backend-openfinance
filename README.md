@@ -72,7 +72,7 @@ Before you begin, ensure you have met the following requirements:
 > **_Note:_** Create a `.env` file within the `/backend` directory.
 
 ```bash
-MONGODB_URI = "mongodb+srv://<REPLACE_USERNAME>:<REPLACE_PASSWORD>@<REPLACE_CLUSTER_NAME>.mongodb.net/<REPLACE_DATABASE_NAME>"
+MONGODB_URI = "mongodb+srv://<REPLACE_USERNAME>:<REPLACE_PASSWORD>@<REPLACE_CLUSTER_NAME>.mongodb.net/"
 ORIGINS=http://localhost:3000
 ```
 

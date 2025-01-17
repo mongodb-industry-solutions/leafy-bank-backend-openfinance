@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGODB_URI = os.getenv("MONGODB_URI")
-DB_NAME = os.getenv("DB_NAME")
+OPENFINANCE_DB_NAME = os.getenv("OPENFINANCE_DB_NAME")
 
 
 def get_mongo_connection() -> MongoDBConnection:
@@ -18,12 +18,12 @@ def get_mongo_connection() -> MongoDBConnection:
 
 def get_keys_collection(db_connection: MongoDBConnection = Depends(get_mongo_connection)) -> Collection:
     """ Dependency to provide the keys collection. """
-    return db_connection.get_database(DB_NAME)["keys"]
+    return db_connection.get_database(OPENFINANCE_DB_NAME)["keys"]
 
 
 def get_auth(mongo_connection: MongoDBConnection = Depends(get_mongo_connection)) -> Auth:
     """ Dependency to provide the Auth service. """
-    return Auth(connection=mongo_connection, db_name=DB_NAME)
+    return Auth(connection=mongo_connection, db_name=OPENFINANCE_DB_NAME)
 
 
 def get_api_key(x_api_key: str = Header(...)):

@@ -1,11 +1,9 @@
 from bson import ObjectId
-from typing import Optional, Union
+from typing import Union
 from database.connection import MongoDBConnection
 from datetime import datetime, timedelta, timezone
 import random
 import logging
-
-from urllib.parse import unquote_plus
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -61,12 +59,28 @@ class ExternalAccounts:
             "AccountType": account_type,
             "AccountBalance": account_balance,
             "AccountCurrency": "USD",  # Always USD
-            "AccountDescription": f"{account_type} account for {user_name} at {account_bank}",
             "AccountUser": {
                 "UserName": user_name,
                 "UserId": user_id_obj  # Keep as reference but not enforced in main user collection
             }
         }
+
+        # Introduce schema differentiation based on account_bank
+        if account_bank == "Green Bank":
+            # Using a different field name for account description to highlight MongoDB's flexibility
+            account_data.update({
+                "GreenAccountNarrative": f"{account_type} account focusing on sustainable banking at {account_bank}"
+            })
+        elif account_bank == "MongoDB Bank":
+            # Using a different field name for MongoDB Bank
+            account_data.update({
+                "MDBAccountNarrative": f"{account_type} account powered by MongoDB at {account_bank}"
+            })
+        else:
+            # Default case
+            account_data.update({
+                "AccountDescription": f"{account_type} account for {user_name} at {account_bank}"
+            })
 
         # Insert the account data into the external accounts collection
         result = self.external_accounts_collection.insert_one(account_data)
@@ -104,9 +118,17 @@ class ExternalAccounts:
         """
         # Determine if the identifier is an ObjectId or a username
         if isinstance(user_identifier, ObjectId):
-            query = {"AccountUser.UserId": user_identifier, "AccountBank": bank_name}
+            query = {"AccountUser.UserId": user_identifier,
+                     "AccountBank": bank_name}
         else:
-            query = {"AccountUser.UserName": user_identifier, "AccountBank": bank_name}
-        
+            query = {"AccountUser.UserName": user_identifier,
+                     "AccountBank": bank_name}
+
         external_accounts = list(self.external_accounts_collection.find(query))
         return external_accounts
+
+# Note:
+# This design showcases MongoDB's schema flexibility—allowing the system to store open finance data
+# in diverse formats within the same collection. By leveraging MongoDB's dynamic schema, we accommodate
+# variations in how account descriptions are structured per bank, demonstrating its capability to support
+# heterogeneous data models seamlessly.
