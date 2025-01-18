@@ -5,7 +5,13 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.errors import RateLimitExceeded
-from routers import secure, public
+
+from routers.open_finance import secure as of_secure
+from routers.open_finance import public as of_public
+from routers.leafy_bank.accounts import secure as lb_accounts_secure
+from routers.leafy_bank.users import secure as lb_users_secure
+from routers.leafy_bank.transactions import secure as lb_transactions_secure
+
 import logging
 
 # Configure logging
@@ -49,16 +55,41 @@ async def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded):
 async def read_root(request: Request):
     return {"message": "Server is running"}
 
-# Include the secure router
+# Open Finance API routes
+
+# Include the Open Finance public router
 app.include_router(
-    secure.router,
-    prefix="/api/v1/secure",
-    tags=["secure"]
+    of_public.router,
+    prefix="/api/v1/openfinance/public",
+    tags=["Open Finance Public Endpoints"]
 )
 
-# Include the public router
+# Include the Open Finance secure router
 app.include_router(
-    public.router,
-    prefix="/api/v1/public",
-    tags=["public"]
+    of_secure.router,
+    prefix="/api/v1/openfinance/secure",
+    tags=["Open Finance Secure Endpoints"]
+)
+
+# Leafy Bank API routes
+
+# Include the Leafy Bank accounts secure router
+app.include_router(
+    lb_accounts_secure.router,
+    prefix="/api/v1/leafybank/accounts/secure",
+    tags=["Leafy Bank Secure Accounts Endpoints"]
+)
+
+# Include the Leafy Bank accounts secure router
+app.include_router(
+    lb_users_secure.router,
+    prefix="/api/v1/leafybank/users/secure",
+    tags=["Leafy Bank Secure Users Endpoints"]
+)
+
+# Include the Leafy Bank transactions secure router
+app.include_router(
+    lb_transactions_secure.router,
+    prefix="/api/v1/leafybank/transactions/secure",
+    tags=["Leafy Bank Secure Transactions Endpoints"]
 )

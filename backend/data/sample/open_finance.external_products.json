@@ -220,4 +220,33 @@
     "Address": "123 Main St",
     "PropertyValue": 96016
   }
+},
+{
+  "_id": {
+    "$oid": "678bc3198ac4eb10e59bb3ae"
+  },
+  "ProductId": "3774",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "Mortgage",
+  "ProductAmount": 38485,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 3.72,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2017-12-30T21:53:01.646Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "claumon",
+    "UserId": {
+      "$oid": "671ff2451ec726b417352703"
+    }
+  },
+  "GreenProductNarrative": "Mortgage tailored for sustainability at Green Bank",
+  "AmortizationPeriod": 25,
+  "PropertyDetails": {
+    "Address": "123 Main St",
+    "PropertyValue": 81527
+  }
 }]
