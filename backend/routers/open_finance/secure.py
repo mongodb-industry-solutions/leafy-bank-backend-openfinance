@@ -1,23 +1,22 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, Response, Query
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-from dependencies import get_auth, get_api_key
+from dependencies import get_auth, get_bearer_token
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 from bson import ObjectId
 
 from dependencies import get_mongo_connection
 from services.auth import Auth
-from services.external_accounts import ExternalAccounts
-from services.external_products import ExternalFinancialProducts
-from services.account_aggregations import AccountAggregations
-from services.product_aggregations import ProductAggregations
+from services.external.external_accounts import ExternalAccounts
+from services.external.external_products import ExternalFinancialProducts
+from services.aggregations.account_aggregations import AccountAggregations
+from services.aggregations.product_aggregations import ProductAggregations
 
 from encoder.json_encoder import MyJSONEncoder
 
 import json
 import logging
-
 
 import os
 from dotenv import load_dotenv
@@ -69,16 +68,16 @@ product_aggr_service = ProductAggregations(connection, db_name=open_finance_db_n
 limiter = Limiter(key_func=get_remote_address)
 
 
-@router.post("/validate-key")
+@router.post("/validate-token")
 @limiter.limit("10/minute")
-async def validate_key(
+async def validate_token(
     request: Request,
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
-    """Endpoint for simple API key health check."""
-    user = auth.api_key_validation(api_key=api_key)
-    return {"message": f"API Key is valid for user: {user['UserName']}"}
+    """Endpoint for simple Bearer Token health check."""
+    user = auth.bearer_token_validation(bearer_token=bearer_token)
+    return {"message": f"Bearer Token is valid for user: {user['UserName']}"}
 
 
 class ExternalAccountRequest(BaseModel):
@@ -92,11 +91,11 @@ class ExternalAccountRequest(BaseModel):
 async def retrieve_external_account_for_user(
     request: Request,
     account_data: ExternalAccountRequest,
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
     """Endpoint to simulate the retrieval of an external account."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
 
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
@@ -107,7 +106,7 @@ async def retrieve_external_account_for_user(
             "Unauthorized access attempt with mismatched user.")
         raise HTTPException(
             status_code=403,
-            detail="Unauthorized: The API key does not belong to the provided user_name or user_id."
+            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
         )
 
     try:
@@ -134,11 +133,11 @@ class ExternalProductRequest(BaseModel):
 async def retrieve_external_product_for_user(
     request: Request,
     product_data: ExternalProductRequest,
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
     """Endpoint to simulate the retrieval of an external financial product."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
 
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}"
@@ -151,7 +150,7 @@ async def retrieve_external_product_for_user(
         )
         raise HTTPException(
             status_code=403,
-            detail="Unauthorized: The API key does not belong to the provided user_name or user_id."
+            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
         )
 
     try:
@@ -182,11 +181,11 @@ async def fetch_external_accounts_for_user(
     request: Request,
     user_identifier: str,  # `user_identifier` as a query parameter
     bank_name: str,  # `bank_name` as a required query parameter
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
     """Get external accounts for a specific user and bank."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
     # Validation: Check if user_auth matches user_identifier
@@ -195,7 +194,7 @@ async def fetch_external_accounts_for_user(
             "Unauthorized access attempt with mismatched user identifier.")
         raise HTTPException(
             status_code=403,
-            detail="Unauthorized: The API key does not belong to the user_identifier."
+            detail="Unauthorized: The Bearer Token does not belong to the user_identifier."
         )
     try:
         if not user_identifier:
@@ -224,11 +223,11 @@ async def fetch_external_products_for_user(
     request: Request,
     user_identifier: str,  # `user_identifier` as a query parameter
     bank_name: str,  # `bank_name` as a required query parameter
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
     """Get external financial products for a specific user and bank."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
 
@@ -238,7 +237,7 @@ async def fetch_external_products_for_user(
             "Unauthorized access attempt with mismatched user identifier.")
         raise HTTPException(
             status_code=403,
-            detail="Unauthorized: The API key does not belong to the user_identifier."
+            detail="Unauthorized: The Bearer Token does not belong to the user_identifier."
         )
 
     try:
@@ -274,11 +273,11 @@ async def calculate_total_balance_for_user(
     request: Request,
     # Using a Pydantic model to validate request data
     total_balance_request: TotalBalanceRequest,
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth),
 ):
     """Endpoint to retrieve the total balance for a specific user."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
     # Ensure the authenticated user matches the user_id being queried
     if user_auth["_id"] != ObjectId(total_balance_request.user_id):
         raise HTTPException(
@@ -322,11 +321,11 @@ class TotalDebtResponse(BaseModel):
 async def calculate_total_debt_for_user(
     request: Request,
     total_debt_request: TotalDebtRequest,
-    api_key: str = Depends(get_api_key),
+    bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
     """Endpoint to retrieve the total debt for a specific user."""
-    user_auth = auth.api_key_validation(api_key=api_key)
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
 
     # Ensure the authenticated user matches the user_id being queried
     if user_auth["_id"] != ObjectId(total_debt_request.user_id):
