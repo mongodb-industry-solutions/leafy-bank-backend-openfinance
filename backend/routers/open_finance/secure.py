@@ -69,7 +69,7 @@ limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/validate-token")
-@limiter.limit("10/minute")
+@limiter.limit("30/minute")
 async def validate_token(
     request: Request,
     bearer_token: str = Depends(get_bearer_token),
@@ -78,97 +78,6 @@ async def validate_token(
     """Endpoint for simple Bearer Token health check."""
     user = auth.bearer_token_validation(bearer_token=bearer_token)
     return {"message": f"Bearer Token is valid for user: {user['UserName']}"}
-
-
-class ExternalAccountRequest(BaseModel):
-    account_bank: str
-    user_name: str
-    user_id: str
-
-
-@router.post("/retrieve-external-account-for-user")
-@limiter.limit("30/minute")
-async def retrieve_external_account_for_user(
-    request: Request,
-    account_data: ExternalAccountRequest,
-    bearer_token: str = Depends(get_bearer_token),
-    auth: Auth = Depends(get_auth)
-):
-    """Endpoint to simulate the retrieval of an external account."""
-    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
-
-    logging.info(
-        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
-
-    # Validation: Both conditions must match
-    if user_auth['UserName'] != account_data.user_name or str(user_auth['_id']) != account_data.user_id:
-        logging.error(
-            "Unauthorized access attempt with mismatched user.")
-        raise HTTPException(
-            status_code=403,
-            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
-        )
-
-    try:
-        account_id = external_accounts_service.retrieve_external_account_for_user(
-            account_bank=account_data.account_bank,
-            user_name=account_data.user_name,
-            user_id=account_data.user_id
-        )
-        return {"message": f"External account retrieved for {account_data.user_name}.", "account_id": str(account_id)}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-class ExternalProductRequest(BaseModel):
-    product_bank: str
-    user_name: str
-    user_id: str
-
-
-@router.post("/retrieve-external-product-for-user")
-@limiter.limit("30/minute")
-async def retrieve_external_product_for_user(
-    request: Request,
-    product_data: ExternalProductRequest,
-    bearer_token: str = Depends(get_bearer_token),
-    auth: Auth = Depends(get_auth)
-):
-    """Endpoint to simulate the retrieval of an external financial product."""
-    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
-
-    logging.info(
-        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}"
-    )
-
-    # Validation: Ensure the provided user matches the authenticated user
-    if user_auth['UserName'] != product_data.user_name or str(user_auth['_id']) != product_data.user_id:
-        logging.error(
-            "Unauthorized access attempt with mismatched user."
-        )
-        raise HTTPException(
-            status_code=403,
-            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
-        )
-
-    try:
-        # Retrieve the external financial product for the user
-        product_id = external_products_service.retrieve_external_product_for_user(
-            product_bank=product_data.product_bank,
-            user_name=product_data.user_name,
-            user_id=product_data.user_id
-        )
-        return {
-            "message": f"External financial product retrieved for {product_data.user_name}.",
-            "product_id": str(product_id)
-        }
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logging.error(f"Error retrieving external financial product: {str(e)}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 class FetchExternalAccountsResponse(BaseModel):
@@ -268,7 +177,7 @@ class TotalBalanceResponse(BaseModel):
 
 
 @router.post("/calculate-total-balance-for-user/", response_model=TotalBalanceResponse)
-@limiter.limit("30/minute")
+@limiter.limit("60/minute")
 async def calculate_total_balance_for_user(
     request: Request,
     # Using a Pydantic model to validate request data
@@ -317,7 +226,7 @@ class TotalDebtResponse(BaseModel):
 
 
 @router.post("/calculate-total-debt-for-user/", response_model=TotalDebtResponse)
-@limiter.limit("30/minute")
+@limiter.limit("60/minute")
 async def calculate_total_debt_for_user(
     request: Request,
     total_debt_request: TotalDebtRequest,
@@ -352,4 +261,95 @@ async def calculate_total_debt_for_user(
         )
     except Exception as e:
         logging.error(f"Error calculating total debt for user: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+class ExternalAccountRequest(BaseModel):
+    account_bank: str
+    user_name: str
+    user_id: str
+
+
+@router.post("/retrieve-external-account-for-user")
+@limiter.limit("30/minute")
+async def retrieve_external_account_for_user(
+    request: Request,
+    account_data: ExternalAccountRequest,
+    bearer_token: str = Depends(get_bearer_token),
+    auth: Auth = Depends(get_auth)
+):
+    """Endpoint to simulate the retrieval of an external account."""
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
+
+    logging.info(
+        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
+
+    # Validation: Both conditions must match
+    if user_auth['UserName'] != account_data.user_name or str(user_auth['_id']) != account_data.user_id:
+        logging.error(
+            "Unauthorized access attempt with mismatched user.")
+        raise HTTPException(
+            status_code=403,
+            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
+        )
+
+    try:
+        account_id = external_accounts_service.retrieve_external_account_for_user(
+            account_bank=account_data.account_bank,
+            user_name=account_data.user_name,
+            user_id=account_data.user_id
+        )
+        return {"message": f"External account retrieved for {account_data.user_name}.", "account_id": str(account_id)}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+class ExternalProductRequest(BaseModel):
+    product_bank: str
+    user_name: str
+    user_id: str
+
+
+@router.post("/retrieve-external-product-for-user")
+@limiter.limit("30/minute")
+async def retrieve_external_product_for_user(
+    request: Request,
+    product_data: ExternalProductRequest,
+    bearer_token: str = Depends(get_bearer_token),
+    auth: Auth = Depends(get_auth)
+):
+    """Endpoint to simulate the retrieval of an external financial product."""
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
+
+    logging.info(
+        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}"
+    )
+
+    # Validation: Ensure the provided user matches the authenticated user
+    if user_auth['UserName'] != product_data.user_name or str(user_auth['_id']) != product_data.user_id:
+        logging.error(
+            "Unauthorized access attempt with mismatched user."
+        )
+        raise HTTPException(
+            status_code=403,
+            detail="Unauthorized: The Bearer Token does not belong to the provided user_name or user_id."
+        )
+
+    try:
+        # Retrieve the external financial product for the user
+        product_id = external_products_service.retrieve_external_product_for_user(
+            product_bank=product_data.product_bank,
+            user_name=product_data.user_name,
+            user_id=product_data.user_id
+        )
+        return {
+            "message": f"External financial product retrieved for {product_data.user_name}.",
+            "product_id": str(product_id)
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logging.error(f"Error retrieving external financial product: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")

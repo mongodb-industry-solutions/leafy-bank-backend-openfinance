@@ -1,4 +1,5 @@
-from fastapi import Header, HTTPException, Depends
+from fastapi import Security, HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from database.connection import MongoDBConnection
 from pymongo.collection import Collection
 from services.auth import Auth
@@ -10,6 +11,8 @@ load_dotenv()
 MONGODB_URI = os.getenv("MONGODB_URI")
 OPENFINANCE_DB_NAME = os.getenv("OPENFINANCE_DB_NAME")
 
+# Add the HTTPBearer security scheme
+bearer_scheme = HTTPBearer()
 
 def get_mongo_connection() -> MongoDBConnection:
     return MongoDBConnection(uri=MONGODB_URI)
@@ -23,9 +26,8 @@ def get_auth(mongo_connection: MongoDBConnection = Depends(get_mongo_connection)
     return Auth(connection=mongo_connection, db_name=OPENFINANCE_DB_NAME)
 
 
-def get_bearer_token(authorization: str = Header(...)):
-    """ Dependency to extract and validate the Bearer token from the Authorization header. """
-    if not authorization.startswith("Bearer "):
-        raise HTTPException(
-            status_code=403, detail="Bearer token is malformed or missing.")
-    return authorization.replace("Bearer ", "")
+def get_bearer_token(credentials: HTTPAuthorizationCredentials = Security(bearer_scheme)) -> str:
+    """Extract and validate the Bearer token from the Authorization header."""
+    if credentials.scheme != "Bearer":
+        raise HTTPException(status_code=403, detail="Bearer token is malformed or missing.")
+    return credentials.credentials

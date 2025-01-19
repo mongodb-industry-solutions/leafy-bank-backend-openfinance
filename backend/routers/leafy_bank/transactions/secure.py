@@ -56,6 +56,9 @@ async def fetch_recent_transactions_for_user(
     bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
+    """
+    Fetch recent transactions for a user based on the provided user identifier.
+    """
     try:
         # Validate Bearer Token and authenticate the user
         user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
