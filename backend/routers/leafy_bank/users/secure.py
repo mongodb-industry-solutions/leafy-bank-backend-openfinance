@@ -55,35 +55,31 @@ class FindUserResponse(BaseModel):
 
 # Define the endpoints
 
-# Endpoint to fetch all users
-@router.get("/fetch-users", response_model=FetchUsersResponse)
-@limiter.limit("60/minute")
-async def fetch_users(
-    request: Request, 
-    bearer_token: str = Depends(get_bearer_token),
-    auth: Auth = Depends(get_auth)
-):
-    try:
-        # Validate Bearer Token and authenticate
-        user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
+# # Endpoint to fetch all users
+# @router.get("/fetch-users", response_model=FetchUsersResponse)
+# @limiter.limit("60/minute")
+# async def fetch_users(
+#     request: Request, 
+#     bearer_token: str = Depends(get_bearer_token),
+#     auth: Auth = Depends(get_auth)
+# ):
+#     """
+#     Fetch all users.
+#     """
+#     try:
+#         # Validate Bearer Token and authenticate
+#         user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
 
-        logging.info(
-            f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
+#         logging.info(
+#             f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
 
-        # Only authorized admins can fetch all users
-        if not user_auth.get("IsAdmin", False):
-            logging.error(
-                "Unauthorized attempt to fetch all users by a non-admin user.")
-            raise HTTPException(
-                status_code=403, detail="Admin privileges required to perform this action.")
-
-        users = users_service.get_users()
-        return Response(content=json.dumps({"users": users}, cls=MyJSONEncoder), media_type="application/json")
-    except HTTPException as he:
-        raise he  # Propagate pre-raised HTTPException
-    except Exception as e:
-        logging.error(f"Error fetching users: {str(e)}")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+#         users = users_service.get_users()
+#         return Response(content=json.dumps({"users": users}, cls=MyJSONEncoder), media_type="application/json")
+#     except HTTPException as he:
+#         raise he  # Propagate pre-raised HTTPException
+#     except Exception as e:
+#         logging.error(f"Error fetching users: {str(e)}")
+#         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 # Endpoint to find a user by their identifier (username or ID)
@@ -95,6 +91,9 @@ async def find_user(
     bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
+    """
+    Find a user by their identifier (username or ID).
+    """
     try:
         # Validate Bearer Token and authenticate
         user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
@@ -102,19 +101,17 @@ async def find_user(
         logging.info(
             f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
 
-        # Ensure the authenticated user is looking up only their own data OR is an admin
+        # Ensure the authenticated user is looking up only their own data
         user_identifier = user_data.user_identifier
 
         # Validate user identity: Match UserName or ObjectId
         if user_auth['UserName'] != user_identifier and str(user_auth['_id']) != user_identifier:
-            # Allow admins to perform the lookup
-            if not user_auth.get("IsAdmin", False):
-                logging.error(
-                    "Unauthorized access attempt with mismatched user identifier.")
-                raise HTTPException(
-                    status_code=403,
-                    detail="Unauthorized access: The Bearer Token does not belong to this user or lacks necessary privileges."
-                )
+            logging.error(
+                "Unauthorized access attempt with mismatched user identifier.")
+            raise HTTPException(
+                status_code=403,
+                 detail="Unauthorized access: The Bearer Token does not belong to this user or lacks necessary privileges."
+            )
 
         # Convert string-based ObjectId to a valid ObjectId, if applicable
         if ObjectId.is_valid(user_identifier):
