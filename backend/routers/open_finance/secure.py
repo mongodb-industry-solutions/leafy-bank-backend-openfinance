@@ -84,85 +84,131 @@ class FetchExternalAccountsResponse(BaseModel):
     accounts: List[Dict]
 
 
-@router.get("/fetch-external-accounts-for-user/", response_model=FetchExternalAccountsResponse)
+class FetchExternalProductsResponse(BaseModel):
+    products: List[Dict]
+    
+
+@router.get("/fetch-external-accounts-for-user-and-institution/", response_model=FetchExternalAccountsResponse)
 @limiter.limit("60/minute")
-async def fetch_external_accounts_for_user(
+async def fetch_external_accounts_for_user_and_institution(
     request: Request,
-    user_identifier: str,  # `user_identifier` as a query parameter
-    bank_name: str,  # `bank_name` as a required query parameter
+    user_identifier: str,
+    institution_name: str,
     bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
-    """Get external accounts for a specific user and bank."""
+    """Get external accounts for a specific user and institution."""
     user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
-    # Validation: Check if user_auth matches user_identifier
     if user_auth['UserName'] != user_identifier and str(user_auth['_id']) != user_identifier:
-        logging.error(
-            "Unauthorized access attempt with mismatched user identifier.")
         raise HTTPException(
-            status_code=403,
-            detail="Unauthorized: The Bearer Token does not belong to the user_identifier."
-        )
+            status_code=403, detail="Unauthorized: The Bearer Token does not belong to the user_identifier.")
     try:
         if not user_identifier:
             raise HTTPException(
                 status_code=400, detail="User identifier is required")
-        # Convert `user_identifier` to ObjectId if valid
         if ObjectId.is_valid(user_identifier):
             user_identifier = ObjectId(user_identifier)
-        accounts = external_accounts_service.get_external_accounts_for_user(
-            user_identifier, bank_name)
+        accounts = external_accounts_service.get_external_accounts_for_user_and_institution(user_identifier, institution_name)
         logging.info(
-            f"Found {len(accounts)} external accounts for user {user_identifier} at bank {bank_name}")
+            f"Found {len(accounts)} external accounts for user {user_identifier} at institution {institution_name}")
         return Response(content=json.dumps({"accounts": accounts}, cls=MyJSONEncoder), media_type="application/json")
     except Exception as e:
         logging.error(f"Error retrieving external accounts for user: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
-class FetchExternalProductsResponse(BaseModel):
-    products: List[Dict]
-
-
-@router.get("/fetch-external-products-for-user/", response_model=FetchExternalProductsResponse)
+@router.get("/fetch-external-products-for-user-and-institution/", response_model=FetchExternalProductsResponse)
 @limiter.limit("60/minute")
-async def fetch_external_products_for_user(
+async def fetch_external_products_for_user_and_institution(
     request: Request,
-    user_identifier: str,  # `user_identifier` as a query parameter
-    bank_name: str,  # `bank_name` as a required query parameter
+    user_identifier: str,
+    institution_name: str,
     bearer_token: str = Depends(get_bearer_token),
     auth: Auth = Depends(get_auth)
 ):
-    """Get external financial products for a specific user and bank."""
+    """Get external financial products for a specific user and institution."""
     user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
     logging.info(
         f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
-
-    # Validation: Check if user_auth matches user_identifier
     if user_auth['UserName'] != user_identifier and str(user_auth['_id']) != user_identifier:
-        logging.error(
-            "Unauthorized access attempt with mismatched user identifier.")
         raise HTTPException(
-            status_code=403,
-            detail="Unauthorized: The Bearer Token does not belong to the user_identifier."
-        )
-
+            status_code=403, detail="Unauthorized: The Bearer Token does not belong to the user_identifier.")
     try:
         if not user_identifier:
             raise HTTPException(
                 status_code=400, detail="User identifier is required")
-        # Convert `user_identifier` to ObjectId if valid
         if ObjectId.is_valid(user_identifier):
             user_identifier = ObjectId(user_identifier)
-        products = external_products_service.get_external_products_for_user(
-            user_identifier, bank_name)
+        products = external_products_service.get_external_products_for_user_and_institution(user_identifier, institution_name)
         logging.info(
-            f"Found {len(products)} external products for user {user_identifier} at bank {bank_name}")
+            f"Found {len(products)} external products for user {user_identifier} at institution {institution_name}")
         return Response(content=json.dumps({"products": products}, cls=MyJSONEncoder), media_type="application/json")
     except Exception as e:
         logging.error(f"Error retrieving external products for user: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/fetch-external-accounts-for-user/", response_model=FetchExternalAccountsResponse)
+@limiter.limit("60/minute")
+async def fetch_all_external_accounts_for_user(
+    request: Request,
+    user_identifier: str,
+    bearer_token: str = Depends(get_bearer_token),
+    auth: Auth = Depends(get_auth)
+):
+    """Get all external accounts for a specific user."""
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
+    logging.info(
+        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
+    if user_auth['UserName'] != user_identifier and str(user_auth['_id']) != user_identifier:
+        raise HTTPException(
+            status_code=403, detail="Unauthorized: The Bearer Token does not belong to the user_identifier.")
+    try:
+        if not user_identifier:
+            raise HTTPException(
+                status_code=400, detail="User identifier is required")
+        if ObjectId.is_valid(user_identifier):
+            user_identifier = ObjectId(user_identifier)
+        accounts = external_accounts_service.get_all_external_accounts_for_user(user_identifier)
+        logging.info(
+            f"Found {len(accounts)} external accounts for user {user_identifier}")
+        return Response(content=json.dumps({"accounts": accounts}, cls=MyJSONEncoder), media_type="application/json")
+    except Exception as e:
+        logging.error(
+            f"Error retrieving all external accounts for user: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/fetch-external-products-for-user/", response_model=FetchExternalProductsResponse)
+@limiter.limit("60/minute")
+async def fetch_all_external_products_for_user(
+    request: Request,
+    user_identifier: str,
+    bearer_token: str = Depends(get_bearer_token),
+    auth: Auth = Depends(get_auth)
+):
+    """Get all external financial products for a specific user."""
+    user_auth = auth.bearer_token_validation(bearer_token=bearer_token)
+    logging.info(
+        f"Authenticated User: UserName: {user_auth['UserName']}; UserId: {user_auth['_id']}")
+    if user_auth['UserName'] != user_identifier and str(user_auth['_id']) != user_identifier:
+        raise HTTPException(
+            status_code=403, detail="Unauthorized: The Bearer Token does not belong to the user_identifier.")
+    try:
+        if not user_identifier:
+            raise HTTPException(
+                status_code=400, detail="User identifier is required")
+        if ObjectId.is_valid(user_identifier):
+            user_identifier = ObjectId(user_identifier)
+        products = external_products_service.get_all_external_products_for_user(user_identifier)
+        logging.info(
+            f"Found {len(products)} external products for user {user_identifier}")
+        return Response(content=json.dumps({"products": products}, cls=MyJSONEncoder), media_type="application/json")
+    except Exception as e:
+        logging.error(
+            f"Error retrieving all external products for user: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
