@@ -108,21 +108,37 @@ class ExternalAccounts:
         start_date = end_date - timedelta(days=5*365)
         return start_date + (end_date - start_date) * random.random()
 
-    def get_external_accounts_for_user(self, user_identifier: Union[str, ObjectId], bank_name: str) -> list[dict]:
+    def get_external_accounts_for_user_and_institution(self, user_identifier: Union[str, ObjectId], institution_name: str) -> list[dict]:
         """Retrieve external accounts for a specific user from a specific bank.
         Args:
             user_identifier (Union[str, ObjectId]): The user identifier (username or ObjectId of the user).
-            bank_name (str): The name of the bank associated with the external accounts.
+            institution_name (str): The name of the financial institution (bank).
         Returns:
             List[dict]: A list of external accounts associated with the user.
         """
         # Determine if the identifier is an ObjectId or a username
         if isinstance(user_identifier, ObjectId):
             query = {"AccountUser.UserId": user_identifier,
-                     "AccountBank": bank_name}
+                     "AccountBank": institution_name}
         else:
             query = {"AccountUser.UserName": user_identifier,
-                     "AccountBank": bank_name}
+                     "AccountBank": institution_name}
+
+        external_accounts = list(self.external_accounts_collection.find(query))
+        return external_accounts
+    
+    def get_all_external_accounts_for_user(self, user_identifier: Union[str, ObjectId]) -> list[dict]:
+        """Retrieve all external accounts for a specific user.
+        Args:
+            user_identifier (Union[str, ObjectId]): The user identifier (username or ObjectId of the user).
+        Returns:
+            List[dict]: A list of external accounts associated with the user.
+        """
+        # Determine if the identifier is an ObjectId or a username
+        if isinstance(user_identifier, ObjectId):
+            query = {"AccountUser.UserId": user_identifier}
+        else:
+            query = {"AccountUser.UserName": user_identifier}
 
         external_accounts = list(self.external_accounts_collection.find(query))
         return external_accounts

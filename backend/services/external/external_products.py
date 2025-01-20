@@ -135,22 +135,39 @@ class ExternalFinancialProducts:
         start_date = end_date - timedelta(days=10*365)
         return start_date + (end_date - start_date) * random.random()
 
-    def get_external_products_for_user(self, user_identifier: Union[str, ObjectId], bank_name: str) -> list[dict]:
-        """Retrieve external financial products for a specific user from a specific bank.
+    def get_external_products_for_user_and_institution(self, user_identifier: Union[str, ObjectId], institution_name: str) -> list[dict]:
+        """Retrieve external financial products for a specific user from a specific financial institution.
 
         Args:
             user_identifier (Union[str, ObjectId]): The user identifier (username or ObjectId of the user).
-            bank_name (str): The name of the bank associated with the external products.
+            institution_name (str): The name of the financial institution (bank).
 
         Returns:
-            List[dict]: A list of external financial products associated with the user.
+            list[dict]: A list of external financial products associated with the user.
         """
         if isinstance(user_identifier, ObjectId):
             query = {"ProductCustomer.UserId": user_identifier,
-                     "ProductBank": bank_name}
+                     "ProductBank": institution_name}
         else:
             query = {"ProductCustomer.UserName": user_identifier,
-                     "ProductBank": bank_name}
+                     "ProductBank": institution_name}
+
+        external_products = list(self.external_products_collection.find(query))
+        return external_products
+    
+    def get_all_external_products_for_user(self, user_identifier: Union[str, ObjectId]) -> list[dict]:
+        """Retrieve all external financial products for a specific user.
+
+        Args:
+            user_identifier (Union[str, ObjectId]): The user identifier (username or ObjectId of the user).
+
+        Returns:
+            list[dict]: A list of external financial products associated with the user.
+        """
+        if isinstance(user_identifier, ObjectId):
+            query = {"ProductCustomer.UserId": user_identifier}
+        else:
+            query = {"ProductCustomer.UserName": user_identifier}
 
         external_products = list(self.external_products_collection.find(query))
         return external_products
