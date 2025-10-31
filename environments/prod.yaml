@@ -1,0 +1,12 @@
+env:
+  NODE_ENV: prod
+  
+envSecrets:
+  MONGODB_URI: leafy-bank-backend-openfinance
+  OPENFINANCE_DB_NAME: leafy-bank-backend-openfinance
+  LEAFYBANK_DB_NAME: leafy-bank-backend-openfinance
+
+serviceAccount:
+  enabled: true
+  create: false  # Don't create a new service account
+  name: irsa  # Use the existing one

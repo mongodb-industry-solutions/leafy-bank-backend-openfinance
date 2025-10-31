@@ -95,7 +95,7 @@ Before you begin, ensure you have met the following requirements:
     - `external_products`
 3. Import the sample data from the `/backend/data/sample` directory into the respective collections.
 
-> **_Note:_** This service is integrated with other services in the Leafy Bank microservices architecture. If you haven’t set up the Leafy Bank internal database yet, follow the instructions [here](https://github.com/mongodb-industry-solutions/leafy-bank-backend-transactions/tree/main?tab=readme-ov-file#step-1-set-up-mongodb-database-and-collections).
+> **_Note:_** This service is integrated with other services in the Leafy Bank microservices architecture. If you haven’t set up the Leafy Bank internal database yet, follow the instructions [here](https://github.com/mongodb-industry-solutions/leafy-bank-backend-openfinance/tree/main?tab=readme-ov-file#step-1-set-up-mongodb-database-and-collections).
 
 To learn more about the other services in the Leafy Bank architecture, check out the [Leafy Bank UI repository](https://github.com/mongodb-industry-solutions/leafy-bank-ui)
 
@@ -121,7 +121,6 @@ To learn more about the other services in the Leafy Bank architecture, check out
 MONGODB_URI = "mongodb+srv://<REPLACE_USERNAME>:<REPLACE_PASSWORD>@<REPLACE_CLUSTER_NAME>.mongodb.net/"
 OPENFINANCE_DB_NAME = "open_finance"
 LEAFYBANK_DB_NAME = "leafy_bank"
-ORIGINS=http://localhost:3000
 ```
 
 ## Run it Locally
@@ -181,11 +180,8 @@ E.g. `http://localhost:8003/docs`
 
 ## Common errors
 
-- Check that you've created an `.env` file that contains the `MONGODB_URI` and `ORIGINS` variables.
+- Check that you've created an `.env` file that contains the environment variables.
 
-## Future tasks
+## 📄 License
 
-- [ ] Add tests
-- [ ] Evaluate SonarQube for code quality
-- [ ] Automate the deployment process using GitHub Actions or CodePipeline
-- [ ] Improve Pydantic usage for API Request and Response models
+See [LICENSE](LICENSE) file for details.
