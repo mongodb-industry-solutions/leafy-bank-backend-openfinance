@@ -13,7 +13,7 @@ from routers.leafy_bank.accounts import secure as lb_accounts_secure
 from routers.leafy_bank.users import secure as lb_users_secure
 from routers.leafy_bank.transactions import secure as lb_transactions_secure
 
-# Configure logging
+# Logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
