@@ -23,3 +23,23 @@ poetry_install:
 
 poetry_update:
 	cd backend && poetry update
+
+# Local development commands
+dev:
+	cd backend && poetry run uvicorn main:app --reload --host 0.0.0.0 --port 8003 --log-level debug
+
+run:
+	cd backend && poetry run uvicorn main:app --host 0.0.0.0 --port 8003
+
+run-verbose:
+	cd backend && poetry run uvicorn main:app --host 0.0.0.0 --port 8003 --log-level debug
+
+logs:
+	cd backend && poetry run uvicorn main:app --reload --host 0.0.0.0 --port 8003 --log-level trace
+
+# Quick setup (first time)
+setup: poetry_start poetry_install
+
+# Check if backend can import correctly
+check:
+	cd backend && poetry run python -c "from main import app; print('✓ App loads successfully')"

@@ -249,4 +249,124 @@
     "Address": "123 Main St",
     "PropertyValue": 81527
   }
+},
+{
+  "_id": {
+    "$oid": "679c1001fd053f026e6b98a1"
+  },
+  "ProductId": "5501",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "CreditCard",
+  "ProductAmount": 2340,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 21.99,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2023-03-15T10:00:00.000Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "fridaklo",
+    "UserId": {
+      "$oid": "65a546ae4a8f64e8f88fb89e"
+    }
+  },
+  "GreenProductNarrative": "Rewards credit card with cashback on eco-friendly purchases at Green Bank",
+  "CardAPR": 21.99,
+  "AnnualFee": 95,
+  "CreditLimit": 10000,
+  "RewardsRate": 2.0,
+  "RewardsType": "Cashback",
+  "CardName": "Green Rewards Card"
+},
+{
+  "_id": {
+    "$oid": "679c1002fd053f026e6b98a2"
+  },
+  "ProductId": "5502",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "CreditCard",
+  "ProductAmount": 4120,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 24.49,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2022-08-20T14:30:00.000Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "gracehop",
+    "UserId": {
+      "$oid": "66fe219d625d93a100528224"
+    }
+  },
+  "MDBProductNarrative": "Cash Plus credit card with no annual fee powered by MongoDB Bank",
+  "CardAPR": 24.49,
+  "AnnualFee": 0,
+  "CreditLimit": 8000,
+  "RewardsRate": 1.5,
+  "RewardsType": "Cashback",
+  "CardName": "MDB Cash Plus Card"
+},
+{
+  "_id": {
+    "$oid": "679c1003fd053f026e6b98a3"
+  },
+  "ProductId": "5503",
+  "ProductBank": "Green Bank",
+  "ProductStatus": "Active",
+  "ProductType": "CreditCard",
+  "ProductAmount": 5680,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 21.99,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2021-11-05T09:15:00.000Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "adalove",
+    "UserId": {
+      "$oid": "671ff0081ec726b417352702"
+    }
+  },
+  "GreenProductNarrative": "Rewards credit card with cashback on eco-friendly purchases at Green Bank",
+  "CardAPR": 21.99,
+  "AnnualFee": 95,
+  "CreditLimit": 10000,
+  "RewardsRate": 2.0,
+  "RewardsType": "Cashback",
+  "CardName": "Green Rewards Card"
+},
+{
+  "_id": {
+    "$oid": "679c1004fd053f026e6b98a4"
+  },
+  "ProductId": "5504",
+  "ProductBank": "MongoDB Bank",
+  "ProductStatus": "Active",
+  "ProductType": "CreditCard",
+  "ProductAmount": 1890,
+  "ProductCurrency": "USD",
+  "ProductInterestRate": 24.49,
+  "ProductDate": {
+    "OpeningDate": {
+      "$date": "2023-06-10T11:00:00.000Z"
+    }
+  },
+  "ProductCustomer": {
+    "UserName": "claumon",
+    "UserId": {
+      "$oid": "671ff2451ec726b417352703"
+    }
+  },
+  "MDBProductNarrative": "Cash Plus credit card with no annual fee powered by MongoDB Bank",
+  "CardAPR": 24.49,
+  "AnnualFee": 0,
+  "CreditLimit": 8000,
+  "RewardsRate": 1.5,
+  "RewardsType": "Cashback",
+  "CardName": "MDB Cash Plus Card"
 }]

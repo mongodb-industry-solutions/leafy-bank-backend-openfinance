@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "679a1001a9711d00a3bb01a1"
+  },
+  "InstitutionName": "Green Bank",
+  "InstitutionType": "BANK",
+  "InstitutionStatus": "Active",
+  "InstitutionDescription": "Sustainable banking focused institution",
+  "InstitutionLogo": "/images/green-bank.png",
+  "InstitutionProducts": [
+    {
+      "ProductType": "Loan",
+      "ProductName": "Green Personal Loan",
+      "ProductInterestRate": 3.75,
+      "ProductCurrency": "USD",
+      "RepaymentPeriod": 12
+    },
+    {
+      "ProductType": "Mortgage",
+      "ProductName": "Green Home Mortgage",
+      "ProductInterestRate": 3.78,
+      "ProductCurrency": "USD",
+      "AmortizationPeriod": 30
+    },
+    {
+      "ProductType": "CreditCard",
+      "ProductName": "Green Rewards Card",
+      "CardAPR": 21.99,
+      "AnnualFee": 95,
+      "CreditLimit": 10000,
+      "RewardsRate": 2.0,
+      "RewardsType": "Cashback",
+      "ProductCurrency": "USD"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "679a1002a9711d00a3bb01a2"
+  },
+  "InstitutionName": "MongoDB Bank",
+  "InstitutionType": "BANK",
+  "InstitutionStatus": "Active",
+  "InstitutionDescription": "Technology-forward banking powered by MongoDB",
+  "InstitutionLogo": "/images/mongodb-bank.png",
+  "InstitutionProducts": [
+    {
+      "ProductType": "Mortgage",
+      "ProductName": "MDB Home Mortgage",
+      "ProductInterestRate": 2.62,
+      "ProductCurrency": "USD",
+      "AmortizationPeriod": 25
+    },
+    {
+      "ProductType": "Loan",
+      "ProductName": "MDB Personal Loan",
+      "ProductInterestRate": 4.63,
+      "ProductCurrency": "USD",
+      "RepaymentPeriod": 36
+    },
+    {
+      "ProductType": "CreditCard",
+      "ProductName": "MDB Cash Plus Card",
+      "CardAPR": 24.49,
+      "AnnualFee": 0,
+      "CreditLimit": 8000,
+      "RewardsRate": 1.5,
+      "RewardsType": "Cashback",
+      "ProductCurrency": "USD"
+    }
+  ]
+}]

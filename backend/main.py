@@ -9,6 +9,8 @@ from slowapi.errors import RateLimitExceeded
 import logging
 from routers.open_finance import secure as of_secure
 from routers.open_finance import public as of_public
+from routers.open_finance import institutions as of_institutions
+from routers.open_finance import consents as of_consents
 from routers.leafy_bank.accounts import secure as lb_accounts_secure
 from routers.leafy_bank.users import secure as lb_users_secure
 from routers.leafy_bank.transactions import secure as lb_transactions_secure
@@ -99,6 +101,20 @@ app.include_router(
     of_secure.router,
     prefix="/api/v1/openfinance/secure",
     tags=["Open Finance Secure Endpoints"]
+)
+
+# Include the Open Finance institutions router
+app.include_router(
+    of_institutions.router,
+    prefix="/api/v1/openfinance/secure/institutions",
+    tags=["Open Finance Institutions"]
+)
+
+# Include the Open Finance consents router
+app.include_router(
+    of_consents.router,
+    prefix="/api/v1/openfinance/secure/consents",
+    tags=["Open Finance Consents"]
 )
 
 # Leafy Bank API routes
