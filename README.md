@@ -118,7 +118,7 @@ To learn more about the other services in the Leafy Bank architecture, check out
 > **_Note:_** Create a `.env` file within the `/backend` directory.
 
 ```bash
-MONGODB_URI = "mongodb+srv://<REPLACE_USERNAME>:<REPLACE_PASSWORD>@<REPLACE_CLUSTER_NAME>.mongodb.net/"
+MONGODB_URI = 
 OPENFINANCE_DB_NAME = "open_finance"
 LEAFYBANK_DB_NAME = "leafy_bank"
 ```
