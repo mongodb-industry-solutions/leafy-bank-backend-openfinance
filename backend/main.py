@@ -11,9 +11,11 @@ from routers.open_finance import secure as of_secure
 from routers.open_finance import public as of_public
 from routers.open_finance import institutions as of_institutions
 from routers.open_finance import consents as of_consents
+from routers.open_finance import customer_data as of_customer_data
 from routers.leafy_bank.accounts import secure as lb_accounts_secure
 from routers.leafy_bank.users import secure as lb_users_secure
 from routers.leafy_bank.transactions import secure as lb_transactions_secure
+from routers.leafy_bank.products import secure as lb_products_secure
 
 # Logging
 logging.basicConfig(
@@ -117,6 +119,13 @@ app.include_router(
     tags=["Open Finance Consents"]
 )
 
+# Include the Open Finance customer data router
+app.include_router(
+    of_customer_data.router,
+    prefix="/api/v1/openfinance/secure/customers",
+    tags=["Open Finance Customer Data"]
+)
+
 # Leafy Bank API routes
 
 # Include the Leafy Bank accounts secure router
@@ -138,4 +147,11 @@ app.include_router(
     lb_transactions_secure.router,
     prefix="/api/v1/leafybank/transactions/secure",
     tags=["Leafy Bank Secure Transactions Endpoint"]
+)
+
+# Include the Leafy Bank products secure router
+app.include_router(
+    lb_products_secure.router,
+    prefix="/api/v1/leafybank/products/secure",
+    tags=["Leafy Bank Products"]
 )
