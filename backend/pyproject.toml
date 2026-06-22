@@ -10,9 +10,11 @@ readme = "README.md"
 python = ">=3.10,<3.11"
 pymongo = "^4.10.1"
 python-dotenv = "^1.0.1"
-fastapi = "^0.115.4"
+fastapi = ">=0.115.12"
 uvicorn = "^0.32.0"
 slowapi = "^0.1.9"
+starlette = ">=0.46.2"
+h11 = ">=0.16.0"
 
 
 [build-system]
