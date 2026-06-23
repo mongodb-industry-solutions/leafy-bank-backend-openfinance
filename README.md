@@ -36,12 +36,12 @@ Public and secure APIs allow emulation of Open Finance use cases such as fetchin
 
 ### Open Finance Secure Endpoints
 
-- `/api/v1/openfinance/secure/fetch-external-accounts-for-user-and-institution`: Retrieve external account data for authenticated users from connected institutions.
-- `/api/v1/openfinance/secure/fetch-external-products-for-user-and-institution`: Retrieve external financial product data for authenticated users from connected institutions.
-- `/api/v1/openfinance/secure/fetch-external-accounts-for-user`: Retrieve external account data for authenticated users from connected institutions.
-- `/api/v1/openfinance/secure/fetch-external-products-for-user`: Retrieve external financial product data for authenticated users from connected institutions.
-- `/api/v1/openfinance/secure/calculate-total-balance-for-user`: Calculate total balances across internal and external accounts.
-- `/api/v1/openfinance/secure/calculate-debt-balance-for-user`: Calculate total debt across connected external financial products.
+- `/api/v1/openfinance/secure/fetch-external-accounts-for-user-and-institution`: Retrieve external account data for authenticated users from connected institutions
+- `/api/v1/openfinance/secure/fetch-external-products-for-user-and-institution`: Retrieve external financial product data for authenticated users from connected institutions
+- `/api/v1/openfinance/secure/fetch-external-accounts-for-user`: Retrieve external account data for authenticated users from connected institutions
+- `/api/v1/openfinance/secure/fetch-external-products-for-user`: Retrieve external financial product data for authenticated users from connected institutions
+- `/api/v1/openfinance/secure/calculate-total-balance-for-user`: Calculate total balances across internal and external accounts
+- `/api/v1/openfinance/secure/calculate-debt-balance-for-user`: Calculate total debt across connected external financial products
 
 ### Leafy Bank Secure Endpoints
 
@@ -82,7 +82,7 @@ Before you begin, ensure you have met the following requirements:
 
 - MongoDB Atlas account, you can create one [here](https://account.mongodb.com/account/register). Free tier is sufficient for this project.
 - Python 3.10 or higher (but less than 3.11)
-- Poetry (install via [Poetry's official documentation](https://python-poetry.org/docs/#installation))
+- Poetry (install via [Poetry&#39;s official documentation](https://python-poetry.org/docs/#installation))
 
 ## Setup Instructions
 
@@ -90,9 +90,9 @@ Before you begin, ensure you have met the following requirements:
 
 1. Log in to [MongoDB Atlas](https://account.mongodb.com/account/login) and create a new database named `open_finance`. You can use another name if you prefer, but make sure to update all database name references in the code and environment variables.
 2. Inside this database, create a 3 (three) empty collections:
-    - `tokens`
-    - `external_accounts`
-    - `external_products`
+   - `tokens`
+   - `external_accounts`
+   - `external_products`
 3. Import the sample data from the `/backend/data/sample` directory into the respective collections.
 
 > **_Note:_** This service is integrated with other services in the Leafy Bank microservices architecture. If you haven’t set up the Leafy Bank internal database yet, follow the instructions [here](https://github.com/mongodb-industry-solutions/leafy-bank-backend-openfinance/tree/main?tab=readme-ov-file#step-1-set-up-mongodb-database-and-collections).
@@ -104,6 +104,7 @@ To learn more about the other services in the Leafy Bank architecture, check out
 - Create a new MongoDB user with read and write access to the `open_finance` database. You can follow the official MongoDB documentation to create a new user. You can find the instructions [here](https://www.mongodb.com/docs/atlas/security-add-mongodb-users/).
 
 #### From the GUI, you can follow these steps:
+
 1. Access your cluster.
 2. Under the `Security` tab, click on `Database Access`.
 3. Click on `Add New Database User or User Group`.
@@ -131,26 +132,29 @@ LEAFYBANK_DB_NAME = "leafy_bank"
    ```toml
    description = "Your Description"
    authors = ["Your Name <you@example.com>"]
+   ```
 2. Open the project in your preferred IDE.
 3. Open a Terminal window.
 4. Ensure you are in the root project directory where the `makefile` is located.
 5. Execute the following commands:
-  - Poetry start
-    ````bash
-    make poetry_start
-    ````
-  - Poetry install
-    ````bash
-    make poetry_install
-    ````
+
+- Poetry start
+  ```bash
+  make poetry_start
+  ```
+- Poetry install
+  ```bash
+  make poetry_install
+  ```
+
 6. Verify that the `.venv` folder has been generated within the `/backend` directory.
 
 ### Run the Backend
 
 1. To run the backend, execute the following command:
-    ````bash
-    poetry run uvicorn main:app --host 0.0.0.0 --port 8003
-    ````
+   ```bash
+   poetry run uvicorn main:app --host 0.0.0.0 --port 8003
+   ```
 
 > **_Note:_** Notice that the backend is running on port `8003`. You can change this port by modifying the `--port` flag.
 
@@ -159,10 +163,13 @@ LEAFYBANK_DB_NAME = "leafy_bank"
 Make sure to run this on the root directory.
 
 1. To run with Docker use the following command:
+
 ```
 make build
 ```
+
 2. To delete the container and image run:
+
 ```
 make clean
 ```
@@ -174,6 +181,7 @@ You can access the API documentation by visiting the following URL:
 ```
 http://localhost:<PORT_NUMBER>/docs
 ```
+
 E.g. `http://localhost:8003/docs`
 
 > **_Note:_** Make sure to replace `<PORT_NUMBER>` with the port number you are using and ensure the backend is running.
